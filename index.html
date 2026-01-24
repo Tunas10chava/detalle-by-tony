@@ -1,114 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Flores Amarillas</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      background: #87CEEB; /* fondo celeste */
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    }
-    canvas {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
-    .mensaje {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      font-size: clamp(1.5rem, 5vw, 2.5rem); /* se adapta al tamaño de pantalla */
-      color: #333;
-      font-weight: bold;
-      z-index: 1;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-      white-space: nowrap;
-    }
-  </style>
+  <meta charset="utf-8">
+  <title>UTOPIA-BUG-REPORT-TEST</title>
 </head>
 <body>
-  <canvas id="canvas"></canvas>
-  <div class="mensaje">🌻 Que tu día esté lleno de sonrisas 🌻</div>
+  <h1>Bug Report Test Page</h1>
+  <p>If you see this, the page is being rendered by the reviewer.</p>
+
+  <ul>
+    <li><a href="https://a2f4ad596b238488.chal.ctf.ae/">Utopia Portal</a></li>
+    <li><a href="https://a2f4ad596b238488.chal.ctf.ae/report">Report Viewer</a></li>
+  </ul>
 
   <script>
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-
-    class Flor {
-      constructor() {
-        this.reset();
-      }
-
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = canvas.height + Math.random() * 200;
-        this.size = 15 + Math.random() * 15;
-        this.speed = 1 + Math.random() * 2;
-        this.angle = Math.random() * 2 * Math.PI;
-      }
-
-      draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-
-        // Pétalos
-        for (let i = 0; i < 5; i++) {
-          ctx.rotate((Math.PI * 2) / 5);
-          ctx.beginPath();
-          ctx.ellipse(0, this.size / 2, this.size / 2.5, this.size, 0, 0, Math.PI * 2);
-          ctx.fillStyle = "yellow";
-          ctx.fill();
-        }
-
-        // Centro
-        ctx.beginPath();
-        ctx.arc(0, 0, this.size / 3, 0, Math.PI * 2);
-        ctx.fillStyle = "brown";
-        ctx.fill();
-
-        ctx.restore();
-      }
-
-      update() {
-        this.y -= this.speed;
-        this.angle += 0.01;
-        if (this.y < -50) {
-          this.reset();
-        }
-        this.draw();
-      }
-    }
-
-    const flores = [];
-    for (let i = 0; i < 30; i++) {
-      flores.push(new Flor());
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      flores.forEach(flor => flor.update());
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    // Ajustar tamaño al rotar o cambiar pantalla
-    window.addEventListener("resize", resizeCanvas);
+    console.log("Bug report page loaded");
   </script>
 </body>
 </html>
