@@ -146,6 +146,22 @@
       font-size: clamp(13px, 1.3vw, 16px);
     }
 
+  .hearts{
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    font-size: 28px;
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+
+
     /* Canvas de nieve */
     canvas#snow {
       position: absolute;
@@ -177,8 +193,11 @@
     <div class="message">
       <div class="card">
         <h1>Feliz San Valentin Ale, que tengas un lindo día</h1>
-        <p>❄️ Con cariño, en un anochecer con luna y nieve.</p>
-      </div>
+        <div class="hearts">
+          <span>💗</span>
+          <span>💗</span>
+</div>
+
     </div>
 
     <div class="haze" aria-hidden="true"></div>
@@ -258,6 +277,7 @@
   </script>
 </body>
 </html>
+
 
 
 
